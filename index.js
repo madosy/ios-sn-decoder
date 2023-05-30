@@ -91,13 +91,21 @@ function getDeviceInfo(serialNumber) {
 
 const serialInputs = Array.from(document.querySelectorAll("input"));
 const form = document.querySelector("form");
-serialInputs.forEach((input, ind) =>
+serialInputs.forEach((input, ind) => {
+  input.addEventListener("paste", (event) => {
+    const clipboard = event.clipboardData.getData("text");
+    serialInputs[0].value = clipboard[0];
+    serialInputs[1].value = clipboard[1];
+    serialInputs[2].value = clipboard[2];
+    serialInputs[3].value = clipboard[3];
+    event.preventDefault();
+  });
   input.addEventListener("input", (event) => {
     input.value = event.data;
     let nextInput = serialInputs[ind + 1];
     if (nextInput && input.value.length > 0) nextInput.focus();
-  })
-);
+  });
+});
 
 const submitButton = document.querySelector("button");
 submitButton.addEventListener("click", (event) => {
@@ -109,13 +117,19 @@ submitButton.addEventListener("click", (event) => {
     displayResult(deviceInfo);
   } catch (err) {
     console.log("Please enter a valid serialnumber");
+    const error = document.querySelector(".error");
+    const spans = document.querySelectorAll("span");
+    error.innerText = "Please enter a valid serial number.";
+    spans.forEach((item) => (item.innerText = ""));
   }
 });
 
 function displayResult(deviceInfo) {
+  const error = document.querySelector(".error");
   const year = document.querySelector(".year span");
   const month = document.querySelector(".month span");
   const product = document.querySelector(".product span");
+  error.innerText = "";
   year.innerText = deviceInfo.year;
   month.innerText = deviceInfo.month;
   product.innerText = `IS ${deviceInfo.product}`;

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IOS SN Decoder</title>
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="decoder-container">
@@ -14,12 +15,13 @@
         <input type="text" id="month" />
         <input type="text" id="product1" />
         <input type="text" id="product2" />
-        <button type="submit">Submit</button>
+        <button type="submit"></button>
       </form>
+      <div class="error"></div>
       <div class="decode-result">
-        <div class="year"><span></span> year</div>
-        <div class="month"><span></span> month</div>
-        <div class="product"><span></span> product type</div>
+        <div class="year">year <span></span></div>
+        <div class="month">month <span></span></div>
+        <div class="product">product <span></span></div>
       </div>
     </div>
   </body>
