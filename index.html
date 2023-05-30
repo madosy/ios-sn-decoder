@@ -7,5 +7,20 @@
     <title>IOS SN Decoder</title>
     <script src="index.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="decoder-container">
+      <form id="serialnumber-decoder">
+        <input type="text" id="year" />
+        <input type="text" id="month" />
+        <input type="text" id="product1" />
+        <input type="text" id="product2" />
+        <button type="submit">Submit</button>
+      </form>
+      <div class="decode-result">
+        <div class="year"><span></span> year</div>
+        <div class="month"><span></span> month</div>
+        <div class="product"><span></span> product type</div>
+      </div>
+    </div>
+  </body>
 </html>

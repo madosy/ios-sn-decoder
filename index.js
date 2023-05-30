@@ -1,5 +1,3 @@
-//make all lowercase
-//charcode
 function getCharCode(letter) {
   const lowerCaseLetter = letter.toLowerCase();
   const charCode = lowerCaseLetter.charCodeAt(0);
@@ -52,7 +50,6 @@ function monthNumToLetter(num) {
 function getMonth(letter) {
   const myCharCode = getCharCode(letter);
   const myMonth = charCodeToMonthNum(myCharCode);
-  console.log(myMonth);
   const myMonthName = monthNumToLetter(myMonth);
   return myMonthName;
 }
@@ -85,10 +82,41 @@ function getProduct(productString) {
   }
 }
 
-function getDeviceInfo(productSerial) {
-  const year = getYear(productSerial[0]);
-  const month = getMonth(productSerial[1]);
-  const productLength = productSerial.length - 6;
-  const product = getProduct(productSerial.substring(2, 2 + productLength));
+function getDeviceInfo(serialNumber) {
+  const year = getYear(serialNumber[0]);
+  const month = getMonth(serialNumber[1]);
+  const product = getProduct(serialNumber.substring(2));
   return { year, month, product };
+}
+
+const serialInputs = Array.from(document.querySelectorAll("input"));
+const form = document.querySelector("form");
+serialInputs.forEach((input, ind) =>
+  input.addEventListener("input", (event) => {
+    input.value = event.data;
+    let nextInput = serialInputs[ind + 1];
+    if (nextInput && input.value.length > 0) nextInput.focus();
+  })
+);
+
+const submitButton = document.querySelector("button");
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  let serialNumber = "";
+  serialInputs.forEach((input) => (serialNumber += input.value));
+  try {
+    const deviceInfo = getDeviceInfo(serialNumber);
+    displayResult(deviceInfo);
+  } catch (err) {
+    console.log("Please enter a valid serialnumber");
+  }
+});
+
+function displayResult(deviceInfo) {
+  const year = document.querySelector(".year span");
+  const month = document.querySelector(".month span");
+  const product = document.querySelector(".product span");
+  year.innerText = deviceInfo.year;
+  month.innerText = deviceInfo.month;
+  product.innerText = `IS ${deviceInfo.product}`;
 }
