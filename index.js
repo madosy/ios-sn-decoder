@@ -14,6 +14,9 @@ function charCodeToYear(num) {
   const rolloverCount = Math.floor((currentYear - resultYear) / ROLLOVER);
   let finalYear = ROLLOVER * rolloverCount + resultYear;
 
+  //need to fix logic later?
+  if (finalYear < 2012) finalYear += ROLLOVER;
+
   return finalYear;
 }
 
@@ -70,10 +73,16 @@ function getProduct(productString) {
       return "3600 Access";
       break;
     case "NH":
-      return "3700";
+      return "3700 Arctic White";
+      break;
+    case "NI":
+      return "3700 Carbon Gray";
       break;
     case "NK":
-      return "3800";
+      return "3800 Wireless";
+      break;
+    case "NL":
+      return "3800 Wired";
       break;
     default:
       throw new Error(
